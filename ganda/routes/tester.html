@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8"/>
+    <title>Vue 2 Tutorial</title>
+</head>
+<body>
+    <h1> Vue Learning</h1>
+    <div id="root">
+        <!-- data binding -->
+        <input type="text" v-model="number"/>
+        <p>{{message}}</p>
+        <p>{{reversedMessage}}</p>
+        <p v-if="this.number === '5'">Number is 5</p>
+        <p v-else>Not 5</p>
+        <button @click="changeMessage">Change</button>
+        <button @click="pullData">Pull Data</button>
+        <ul>
+            <li v-for="x in laptops">
+                {{x}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#root', // semua function di dalam sini, bisa ubah semua yang di dalem #root
+            data: {
+                message: "Hello World",
+                number: 5,
+                laptops: [
+                    "acer",
+                    "asus",
+                    "macbook"
+                ],
+            },
+            methods: {
+                changeMessage() {
+                    this.message = "It is changed!";
+                },
+                pullData() {
+                    this.$http.get(
+                        'http://rest-service.guides.spring.io/greeting').then(response => {
+                            console.log(response.body);
+                        }, response => {
+                            console.log('error');
+                        });
+                }
+            },
+            computed: { // will only be called when, for example, this.message is changed
+                reversedMessage() {
+                    return this.message.split('').reverse().join('');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

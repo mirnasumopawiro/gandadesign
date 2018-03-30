@@ -22,7 +22,7 @@ class CreateItemDescValsTable extends Migration
             $table->foreign('item_descs_id')->references('id')->on('item_descs');
         });
 
-        DB::statement('ALTER TABLE item_desc_vals ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
+        DB::statement('ALTER TABLE item_desc_vals ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

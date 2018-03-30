@@ -22,7 +22,7 @@ class CreateOrderDetailsTable extends Migration
             $table->foreign('items_id')->references('id')->on('items');
         });
 
-        DB:statement('ALTER TABLE order_details ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
+        DB::statement('ALTER TABLE order_details ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

@@ -20,7 +20,7 @@ class CreateItemsTable extends Migration
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE items ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
+        DB::statement('ALTER TABLE items ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

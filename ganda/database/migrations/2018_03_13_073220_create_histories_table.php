@@ -25,7 +25,7 @@ class CreateHistoriesTable extends Migration
             $table->foreign('order_details_id')->references('id')->on('order_details');
         });
 
-        DB::statement('ALTER TABLE histories ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
+        DB::statement('ALTER TABLE histories ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

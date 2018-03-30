@@ -9,7 +9,7 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers');
-header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token')
+header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token');
 
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)

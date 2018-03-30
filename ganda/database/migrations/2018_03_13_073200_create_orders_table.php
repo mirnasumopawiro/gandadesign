@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('customers_id')->references('id')->on('customers');
         });
 
-        DB::statement('ALTER TABLE orders ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
+        DB::statement('ALTER TABLE orders ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

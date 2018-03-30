@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->foreign('sub_categories_id')->references('id')->on('sub_categories');
         });
 
-        DB::statement('ALTER TABLE products ALTER COLUMN id SET DEFEAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE products ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

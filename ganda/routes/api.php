@@ -83,4 +83,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('insertHistory', 'PurchaseController@insertHistory');
 	Route::delete('deleteHistory', 'PurchaseController@deleteHistory');
 	Route::put('updateHistory', 'PurchaseController@updateHistory');
+
+	Route::post('register', 'AuthController@register');
+	Route::post('login', 'AuthController@login');
+	Route::get('logout', 'AuthController@logout');
 	

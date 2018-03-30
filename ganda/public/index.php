@@ -9,7 +9,7 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: X-Requested-With, content-type, access-control-allow-origin, access-control-allow-methods, access-control-allow-headers');
-header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token')
+header('Access-Control-Allow-Headers: Content-Type, Authorization, x-xsrf-token');
 
 define('LARAVEL_START', microtime(true));
 

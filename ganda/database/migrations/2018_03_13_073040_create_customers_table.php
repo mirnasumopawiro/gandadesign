@@ -14,7 +14,8 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
+            $table->primary('id');
             $table->string('email');
             $table->string('password');
             $table->string('fname');
@@ -28,6 +29,8 @@ class CreateCustomersTable extends Migration
             $table->string('gender');
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE customers ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

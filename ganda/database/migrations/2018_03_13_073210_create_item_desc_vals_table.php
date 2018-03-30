@@ -14,12 +14,15 @@ class CreateItemDescValsTable extends Migration
     public function up()
     {
         Schema::create('item_desc_vals', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('item_descs_id')->unsigned();
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('item_descs_id')->unsigned();
             $table->string('value');
             $table->timestamps();
             $table->foreign('item_descs_id')->references('id')->on('item_descs');
         });
+
+        DB::statement('ALTER TABLE item_desc_vals ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
     }
 
     /**

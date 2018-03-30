@@ -14,10 +14,13 @@ class CreateItemsTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
+            $table->primary('id');
             $table->string('name');
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE items ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
     }
 
     /**

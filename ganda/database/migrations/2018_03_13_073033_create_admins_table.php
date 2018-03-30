@@ -14,12 +14,15 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id');
+            $table->primary('id');
             $table->string('email');
             $table->string('password');
             $table->string('name');
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE admins ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

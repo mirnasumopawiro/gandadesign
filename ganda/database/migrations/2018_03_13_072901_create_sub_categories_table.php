@@ -14,12 +14,15 @@ class CreateSubCategoriesTable extends Migration
     public function up()
     {
         Schema::create('sub_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('categories_id')->unsigned();
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('categories_id')->unsigned();
             $table->string('name');
             $table->timestamps();
             $table->foreign('categories_id')->references('id')->on('categories');
         });
+
+        DB::statement('ALTER TABLE sub_categories ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

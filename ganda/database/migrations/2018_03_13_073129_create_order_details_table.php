@@ -14,12 +14,15 @@ class CreateOrderDetailsTable extends Migration
     public function up()
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('items_id')->unsigned();
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('items_id')->unsigned();
             $table->integer('qty');
             $table->timestamps();
             $table->foreign('items_id')->references('id')->on('items');
         });
+
+        DB:statement('ALTER TABLE order_details ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
     }
 
     /**

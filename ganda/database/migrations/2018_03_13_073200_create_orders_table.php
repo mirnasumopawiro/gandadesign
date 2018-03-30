@@ -14,9 +14,10 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('carts_id')->unsigned();
-            $table->integer('customers_id')->unsigned();
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('carts_id')->unsigned();
+            $table->uuid('customers_id')->unsigned();
             $table->date('dateOpen');
             $table->date('dateClose');
             $table->string('orderStatus');
@@ -29,6 +30,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('carts_id')->references('id')->on('carts');
             $table->foreign('customers_id')->references('id')->on('customers');
         });
+
+        DB::statement('ALTER TABLE orders ALTER COLUMN id SET DEFAULT uuid_generation_v4();');
     }
 
     /**

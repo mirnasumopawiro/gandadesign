@@ -14,8 +14,9 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('sub_categories_id')->unsigned();
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('sub_categories_id')->unsigned();
             $table->string('name');
             $table->decimal('price');
             $table->string('description');
@@ -24,6 +25,8 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->foreign('sub_categories_id')->references('id')->on('sub_categories');
         });
+
+        DB::statement('ALTER TABLE products ALTER COLUMN id SET DEFEAULT uuid_generate_v4();');
     }
 
     /**

@@ -18,6 +18,7 @@ class CreateProdDescValsTable extends Migration
             $table->primary('id');
             $table->uuid('prod_descs_id')->unsigned();
             $table->string('value');
+            $table->integer('stock');
             $table->timestamps();
             $table->foreign('prod_descs_id')->references('id')->on('prod_descs');
         });

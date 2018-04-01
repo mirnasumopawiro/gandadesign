@@ -8,13 +8,11 @@ use App\category;
 use App\subCategory;
 use App\product;
 use App\prodDesc;
-use App\prodDescVal;
 use App\customer;
 use App\order;
 use App\cart;
 use App\item;
 use App\itemDesc;
-use App\itemDescVal;
 use App\orderDetail;
 use App\history;
 

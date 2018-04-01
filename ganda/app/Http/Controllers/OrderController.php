@@ -7,7 +7,6 @@ use App\order;
 use App\cart;
 use App\item;
 use App\itemDesc;
-use App\itemDescVal;
 
 class OrderController extends Controller
 {

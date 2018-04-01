@@ -12,7 +12,7 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('/category', CategoryController::class);
-    $router->resource('/subcategory', SubCategoryController::class);
+    $router->resource('/subCategory', SubCategoryController::class);
     $router->resource('/product', ProductController::class);
     $router->resource('/prodDesc', ProdDescController::class);
     $router->resource('/user', UserController::class);

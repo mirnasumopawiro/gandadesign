@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::put('updateCustomer', 'CustomerController@updateCustomer');
 
 	Route::get('getCategory', 'CatalogController@getCategory');
+	Route::get('checkStock/{id}/{qty}', 'CatalogController@checkStock');
 	Route::post('insertCategory', 'CatalogController@insertCategory');
 	Route::delete('deleteCategory', 'CatalogController@deleteCategory');
 	Route::put('updateCategory', 'CatalogController@updateCategory');
@@ -35,6 +36,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::get('showBySubCategory/{id}', 'CatalogController@showBySubCategory');
 
 	Route::get('getProduct', 'CatalogController@getProduct');
+	Route::get('getProduct/{id}', 'CatalogController@getProductById');
 	Route::post('insertProduct', 'CatalogController@insertProduct');
 	Route::delete('deleteProduct', 'CatalogController@deleteProduct');
 	Route::put('updateProduct', 'CatalogController@updateProduct');

@@ -7,11 +7,18 @@ use App\category;
 use App\subCategory;
 use App\product;
 use App\prodDesc;
-use App\prodDescVal;
 
 class CatalogController extends Controller
 {
     //CRUD categories table via category moodel DONE
+	public function checkStock($id, $qty){
+		$currStock = prodDesc::where('products_id', '<=', $id)->value('stock');
+		if ($currStock < $qty){
+			return response([
+				'msg' => 'Sorry, our current stock is '. $currStock
+			]);
+		}
+	}
 
 	public function getCategory(){
 		return category::all();
@@ -41,14 +48,8 @@ class CatalogController extends Controller
 	}
 
 	public function showByCategory($id){
-		$idCategory = category::where('id', '=', $id)->value('id');
-		$nameCategory = category::where('id', '=', $id)->value('name');
+		return subCategory::where('categories_id', '=', $id)->get();
 
-		$data['id']				= $idCategory;
-		$data['name']			= $nameCategory;
-		$data['subCategory']	= [ subCategory::where('categories_id', '=', $id)->get()];
-
-		return $data;
 	}
 
 	//CRUD sub_categories table via subCategory moodel DONE
@@ -96,6 +97,10 @@ class CatalogController extends Controller
 
 	public function getProduct(){
 		return product::all();
+	}
+
+	public function getProductById($id){
+ 		return product::where('id', '=', $id)->first();
 	}
 
 	public function insertProduct(Request $request){

@@ -137,6 +137,10 @@ class CatalogController extends Controller
 		return prodDesc::all();
 	}
 
+	public function getProdDescbyProdId($id){
+		return prodDesc::where('products_id', '=', $id);
+	}
+
 	public function insertProdDesc(Request $request){
 		$data = new prodDesc();
 		$data['products_id'] 	= $request->input('products_id');

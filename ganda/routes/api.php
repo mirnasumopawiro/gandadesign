@@ -40,6 +40,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::put('updateProduct', 'CatalogController@updateProduct');
 
 	Route::get('getProdDesc', 'CatalogController@getProdDesc');
+	Route::get('getProdDesc/{id}', 'CatalogController@getProdDescbyProdId');
 	Route::post('insertProdDesc', 'CatalogController@insertProdDesc');
 	Route::delete('deleteProdDesc', 'CatalogController@deleteProdDesc');
 	Route::put('updateProdDesc', 'CatalogController@updateProdDesc');

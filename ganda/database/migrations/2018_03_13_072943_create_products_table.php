@@ -17,10 +17,11 @@ class CreateProductsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('sub_categories_id')->unsigned();
+            //name of product already include the color if any
             $table->string('name');
             $table->decimal('price');
             $table->string('description');
-            $table->string('material');
+            $table->string('photo');
             $table->string('tag');
             $table->timestamps();
             $table->foreign('sub_categories_id')->references('id')->on('sub_categories');

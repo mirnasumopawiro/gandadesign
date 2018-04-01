@@ -104,7 +104,7 @@ class CatalogController extends Controller
 		$data['name']				= $request->input('name');
 		$data['price']				= $request->input('price');
 		$data['description']		= $request->input('description');
-		$data['material']			= $request->input('material');
+		$data['photo']				= $request->input('photo');
 		$data['tag']				= $request->input('tag');
 		$data->save();
 
@@ -119,7 +119,7 @@ class CatalogController extends Controller
 					'name' 			=> $request->input('name'),
 					'price' 		=> $request->input('price'),
 					'description' 	=> $request->input('description'),
-					'material' 		=> $request->input('material'),
+					'photo' 		=> $request->input('photo'),
 					'tag' 			=> $request->input('tag'),
 				]);
 
@@ -142,7 +142,7 @@ class CatalogController extends Controller
 		$data = new prodDesc();
 		$data['products_id'] 	= $request->input('products_id');
 		$data['size'] 			= $request->input('size');
-		$data['color'] 			= $request->input('color');
+		$data['stock'] 			= $request->input('stock');
 		$data->save();
 
 		return response([
@@ -155,7 +155,7 @@ class CatalogController extends Controller
 				->update([
 						'products_id' 	=> $request->input('products_id'),
 						'size' 			=> $request->input('size'),
-						'color' 		=> $request->input('color'),
+						'stock' 			=> $request->input('stock'),
 					]);
 
 		return response([
@@ -165,39 +165,6 @@ class CatalogController extends Controller
 
 	public function deleteProdDesc(Request $request){
 		prodDesc::where('id', '=', $request->input('id'))->delete();
-	}
-
-	//CRUD prod_desc_vals table via prodDescVal model DONE
-
-	public function getProdDescVal(){
-		return prodDescVal::all();
-	}
-
-	public function insertProdDescVal(Request $request){
-		$data = new prodDescVal();
-		$data['prod_descs_id']	= $request->input('prod_descs_id');
-		$data['value']			= $request->input('value');
-		$data->save();
-
-		return response([
-			'msg' => 'success',
-		],200);
-	}
-
-	public function updateProdDescVal(Request $request){
-		prodDescVal::where('id', '=', $request->input('id'))
-				->update([
-						'prod_descs_id'	=> $request->input('prod_descs_id'),
-						'value' 		=> $request->input('value'),
-					]);
-
-		return response([
-			'msg' => 'success'
-		],200);
-	}
-
-	public function deleteProdDescVal(Request $request){
-		prodDescVal::where('id', '=', $request->input('id'))->delete();
 	}
 
 }

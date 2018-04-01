@@ -131,7 +131,7 @@ class OrderController extends Controller
 		$data = new itemDesc();
 		$data['items_id'] = $request->input('items_id');
 		$data['size'] = $request->input('size');
-		$data['color'] = $request->input('color');
+		$data['stock'] = $request->input('stock');
 		$data->save();
 
 		return response([
@@ -144,7 +144,7 @@ class OrderController extends Controller
 				->update([
 						'items_id' => $request->input('items_id'),
 						'size' => $request->input('size'),
-						'color' => $request->input('color'),
+						'stock' => $request->input('stock'),
 					]);
 
 		return response([
@@ -154,38 +154,5 @@ class OrderController extends Controller
 
 	public function deleteItemDesc(Request $request){
 		itemDesc::where('id', '=', $request->input('id'))->delete();
-	}
-
-	//CRUD item_desc_vals table via itemDescVal model DONE
-
-	public function getItemDescVal(){
-		return itemDescVal::all();
-	}
-
-	public function insertItemDescVal(Request $request){
-		$data = new itemDescVal();
-		$data['item_descs_id'] = $request->input('item_descs_id');
-		$data['value'] = $request->input('value');
-		$data->save();
-
-		return response([
-			'msg' => 'success',
-		],200);
-	}
-
-	public function updateItemDescVal(Request $request){
-		itemDescVal::where('id', '=', $request->input('id'))
-				->update([
-						'item_descs_id' => $request->input('item_descs_id'),
-						'value' => $request->input('value'),
-					]);
-
-		return response([
-			'msg' => 'success'
-		],200);
-	}
-
-	public function deleteItemDescVal(Request $request){
-		itemDescVal::where('id', '=', $request->input('id'))->delete();
 	}
 }

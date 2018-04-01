@@ -18,7 +18,7 @@ class CreateProdDescsTable extends Migration
             $table->primary('id');
             $table->uuid('products_id')->unsigned();
             $table->string('size');
-            $table->string('color');
+            $table->integer('stock');
             $table->timestamps();
             $table->foreign('products_id')->references('id')->on('products');
         });

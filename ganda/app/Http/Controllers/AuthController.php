@@ -16,11 +16,28 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-    	$credentials = $request->only('name', 'email', 'password');
+    	$credentials = $request->only(
+            'name', 
+            'email', 
+            'password', 
+            'addr', 
+            'city', 
+            'state', 
+            'zipcode', 
+            'country', 
+            'mobile'
+        );
 
     	$rules = [
     		'name' => 'required|max:255',
-    		'email' => 'required|email|max:255|unique:users'
+    		'email' => 'required|email|max:255|unique:users',
+            'addr' => 'required|max:255',
+            'city' => 'required|max:255',
+            'state' => 'required|max:255',
+            'zipcode' => 'required|max:8',
+            'country' => 'required|max:255',
+            'mobile' => 'required|max:15',
+            
     	];
 
     	$validator = Validator::make($credentials, $rules);
@@ -31,8 +48,25 @@ class AuthController extends Controller
     	$name = $request->name;
     	$email = $request->email;
     	$password = $request->password;
+        $addr = $request->addr;
+        $city = $request->city;
+        $state = $request->state;
+        $zipcode = $request->zipcode;
+        $country = $request->country;
+        $mobile = $request->mobile;
 
-    	$user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+    	$user = User::create([
+            'name'      => $name, 
+            'email'     => $email, 
+            'password'  => Hash::make($password),
+            'addr'      => $addr,
+            'city'      => $city,
+            'state'     => $state,
+            'zipcode'   => $zipcode,
+            'country'   => $country,
+            'mobile'    => $mobile,
+
+        ]);
 
     	// $verification_code = str_random(30);
     	// DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code])
@@ -80,7 +114,7 @@ class AuthController extends Controller
 
     	$rules = [
     		'email' => 'required|email',
-    		'password' => 'reqiured',
+    		'password' => 'required',
     	];
 
     	$validator = Validator::make($credentials, $rules);

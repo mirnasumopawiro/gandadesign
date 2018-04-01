@@ -18,7 +18,7 @@ class CreateItemDescsTable extends Migration
             $table->primary('id');
             $table->uuid('items_id')->unsigned();
             $table->string('size');
-            $table->string('color');
+            $table->string('stock');
             $table->timestamps();
             $table->foreign('items_id')->references('id')->on('items');
         });

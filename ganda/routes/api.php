@@ -44,11 +44,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::delete('deleteProdDesc', 'CatalogController@deleteProdDesc');
 	Route::put('updateProdDesc', 'CatalogController@updateProdDesc');
 
-	Route::get('getProdDescVal', 'CatalogController@getProdDescVal');
-	Route::post('insertProdDescVal', 'CatalogController@insertProdDescVal');
-	Route::delete('deleteProdDescVal', 'CatalogController@deleteProdDescVal');
-	Route::put('updateProdDescVal', 'CatalogController@updateProdDescVal');
-
 	Route::get('getOrder', 'OrderController@getOrder');
 	Route::post('insertOrder', 'OrderController@insertOrder');
 	Route::delete('deleteOrder', 'OrderController@deleteOrder');
@@ -68,11 +63,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('insertItemDesc', 'OrderController@insertItemDesc');
 	Route::delete('deleteItemDesc', 'OrderController@deleteItemDesc');
 	Route::put('updateItemDesc', 'OrderController@updateItemDesc');
-
-	Route::get('getItemDescVal', 'OrderController@getItemDescVal');
-	Route::post('insertItemDescVal', 'OrderController@insertItemDescVal');
-	Route::delete('deleteItemDescVal', 'OrderController@deleteItemDescVal');
-	Route::put('updateItemDescVal', 'OrderController@updateItemDescVal');
 
 	Route::get('getOrderDetail', 'PurchaseController@getOrderDetail');
 	Route::post('insertOrderDetail', 'PurchaseController@insertOrderDetail');

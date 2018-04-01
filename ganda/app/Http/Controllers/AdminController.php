@@ -148,7 +148,7 @@ class AdminController extends Controller
 		$data['name']				= $request->input('name');
 		$data['price']				= $request->input('price');
 		$data['description']		= $request->input('description');
-		$data['material']			= $request->input('material');
+		$data['photo']				= $request->input('photo');
 		$data['tag']				= $request->input('tag');
 		$data->save();
 
@@ -163,7 +163,7 @@ class AdminController extends Controller
 					'name' 			=> $request->input('name'),
 					'price' 		=> $request->input('price'),
 					'description' 	=> $request->input('description'),
-					'material' 		=> $request->input('material'),
+					'photo' 		=> $request->input('photo'),
 					'tag' 			=> $request->input('tag'),
 				]);
 
@@ -186,7 +186,7 @@ class AdminController extends Controller
 		$data = new prodDesc();
 		$data['products_id'] 	= $request->input('products_id');
 		$data['size'] 			= $request->input('size');
-		$data['color'] 			= $request->input('color');
+		$data['stock'] 			= $request->input('stock');
 		$data->save();
 
 		return response([
@@ -199,7 +199,7 @@ class AdminController extends Controller
 				->update([
 						'products_id' 	=> $request->input('products_id'),
 						'size' 			=> $request->input('size'),
-						'color' 		=> $request->input('color'),
+						'stock' 			=> $request->input('stock'),
 					]);
 
 		return response([
@@ -211,39 +211,7 @@ class AdminController extends Controller
 		prodDesc::where('id', '=', $request->input('id'))->delete();
 	}
 
-	//CRUD prod_desc_vals table via prodDescVal model DONE
-
-	public function getProdDescVal(){
-		return prodDescVal::all();
-	}
-
-	public function insertProdDescVal(Request $request){
-		$data = new prodDescVal();
-		$data['prod_descs_id']	= $request->input('prod_descs_id');
-		$data['value']			= $request->input('value');
-		$data->save();
-
-		return response([
-			'msg' => 'success',
-		],200);
-	}
-
-	public function updateProdDescVal(Request $request){
-		prodDescVal::where('id', '=', $request->input('id'))
-				->update([
-						'prod_descs_id'	=> $request->input('prod_descs_id'),
-						'value' 		=> $request->input('value'),
-					]);
-
-		return response([
-			'msg' => 'success'
-		],200);
-	}
-
-	public function deleteProdDescVal(Request $request){
-		prodDescVal::where('id', '=', $request->input('id'))->delete();
-	}
-
+	
 	//CRUD customers table via customer model DONE
 
 	public function getCustomer(){
@@ -415,7 +383,7 @@ class AdminController extends Controller
 		$data = new itemDesc();
 		$data['items_id'] = $request->input('items_id');
 		$data['size'] = $request->input('size');
-		$data['color'] = $request->input('color');
+		$data['stock'] = $request->input('stock');
 		$data->save();
 
 		return response([
@@ -428,7 +396,7 @@ class AdminController extends Controller
 				->update([
 						'items_id' => $request->input('items_id'),
 						'size' => $request->input('size'),
-						'color' => $request->input('color'),
+						'stock' => $request->input('stock'),
 					]);
 
 		return response([
@@ -438,39 +406,6 @@ class AdminController extends Controller
 
 	public function deleteItemDesc(Request $request){
 		itemDesc::where('id', '=', $request->input('id'))->delete();
-	}
-
-	//CRUD item_desc_vals table via itemDescVal model DONE
-
-	public function getItemDescVal(){
-		return itemDescVal::all();
-	}
-
-	public function insertItemDescVal(Request $request){
-		$data = new itemDescVal();
-		$data['item_descs_id'] = $request->input('item_descs_id');
-		$data['value'] = $request->input('value');
-		$data->save();
-
-		return response([
-			'msg' => 'success',
-		],200);
-	}
-
-	public function updateItemDescVal(Request $request){
-		itemDescVal::where('id', '=', $request->input('id'))
-				->update([
-						'item_descs_id' => $request->input('item_descs_id'),
-						'value' => $request->input('value'),
-					]);
-
-		return response([
-			'msg' => 'success'
-		],200);
-	}
-
-	public function deleteItemDescVal(Request $request){
-		itemDescVal::where('id', '=', $request->input('id'))->delete();
 	}
 
 	//CRUD order_details table via orderDetail moodel DONE
@@ -539,5 +474,52 @@ class AdminController extends Controller
 
 	public function deleteHistory(Request $request){
 		history::where('id', '=', $request->input('id'))->delete();
+	}
+
+	//CRUD users table via User model DONE
+
+	public function getUser(){
+		return user::all();
+	}
+
+	public function insertUser(Request $request){
+		$data = new user();
+		$data['name'] 		= $request->input('name');
+		$data['email'] 		= $request->input('email');
+		$data['password'] 	= $request->input('password');
+		$data['addr'] 		= $request->input('addr');
+		$data['city'] 		= $request->input('city');
+		$data['state'] 		= $request->input('state');
+		$data['zipcode'] 	= $request->input('zipcode');
+		$data['country'] 	= $request->input('country');
+		$data['mobile'] 	= $request->input('mobile');
+		$data->save();
+
+		return response([
+			'msg' => 'success',
+		],200);
+	}
+
+	public function updateUser(Request $request){
+		customer::where('id', '=', $request->input('id'))
+				->update([
+					'name'		=> $request->input('name'),
+					'email'		=> $request->input('email'),
+					'password'	=> $request->input('password'),
+					'addr'		=> $request->input('addr'),
+					'city'		=> $request->input('city'),
+					'state'		=> $request->input('state'),
+					'zipcode'	=> $request->input('zipcode'),
+					'country'	=> $request->input('country'),
+					'mobile'	=> $request->input('mobile'),
+				]);
+
+		return response([
+			'msg' => 'success'
+		],200);
+	}
+
+	public function deleteUser(Request $request){
+		customer::where('id', '=', $request->input('id'))->delete();
 	}
 }

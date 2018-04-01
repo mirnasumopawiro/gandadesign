@@ -16,8 +16,9 @@ class PurchaseController extends Controller
 
 	public function insertOrderDetail(Request $request){
 		$data = new orderDetail();
-		$data['items_id'] = $request->input('items_id');
-		$data['qty'] = $request->input('qty');
+		$data['products_id'] = $request->input($idProd);
+		$data['size'] = $request->input($size);
+		$data['qty'] = $request->input($qty);
 		$data->save();
 
 		return response([
@@ -28,7 +29,8 @@ class PurchaseController extends Controller
 	public function updateOrderDetail(Request $request){
 		orderDetail::where('id', '=', $request->input('id'))
 				->update([
-					'items_id' => $request->input('items_id'),
+					'products_id' => $request->input('products_id'),
+					'size' => $request->input('size'),
 					'qty' => $request->input('qty'),
 			]);
 

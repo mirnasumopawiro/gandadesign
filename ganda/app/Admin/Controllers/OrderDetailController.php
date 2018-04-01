@@ -75,9 +75,10 @@ class OrderDetailController extends Controller
         return Admin::grid(orderDetail::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->items_id()->display(function($item){
-                return item::find($item)->name;
+            $grid->products_id()->display(function($item){
+                return product::find($product)->name;
             });
+            $grid->size();
             $grid->qty();
             $grid->created_at();
             $grid->updated_at();
@@ -94,9 +95,10 @@ class OrderDetailController extends Controller
         return Admin::form(orderDetail::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->select('items_id')->options(function($id){
-                return item::all()->pluck('name', 'id');
+            $form->select('products_id')->options(function($id){
+                return product::all()->pluck('name', 'id');
             });
+            $form->text('size');
             $form->text('qty');
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');

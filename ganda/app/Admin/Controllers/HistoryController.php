@@ -3,7 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\history;
-use App\customer;
+use App\user;
 use App\order;
 use App\orderDetail;
 
@@ -77,8 +77,8 @@ class HistoryController extends Controller
         return Admin::grid(history::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->customers_id()->display(function($customer){
-                return customer::find($customer)->name;
+            $grid->users_id()->display(function($user){
+                return user::find($user)->name;
             });
             $grid->orders_id()->display(function($order){
                 return order::find($order)->orderStatus;
@@ -101,8 +101,8 @@ class HistoryController extends Controller
         return Admin::form(history::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->select('customers_id')->options(function($id){
-                return customer::all()->pluck('id');
+            $form->select('users_id')->options(function($id){
+                return user::all()->pluck('id');
             });
             $form->select('orders_id')->options(function($id){
                 return order::all()->pluck('id');

@@ -16,10 +16,13 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('items_id')->unsigned();
+            $table->uuid('products_id')->unsigned();
+            $table->uuid('users_id')->unsigned();
+            $table->integer('size');
             $table->integer('qty');
             $table->timestamps();
-            $table->foreign('items_id')->references('id')->on('items');
+            $table->foreign('products_id')->references('id')->on('products');
+            $table->foreign('users_id')->references('id')->on('users');
         });
 
         DB::statement('ALTER TABLE carts ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

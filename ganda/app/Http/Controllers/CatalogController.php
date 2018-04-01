@@ -7,19 +7,13 @@ use App\category;
 use App\subCategory;
 use App\product;
 use App\prodDesc;
+use App\cart;
+use App\item;
+use App\orderDetail;
 
 class CatalogController extends Controller
 {
     //CRUD categories table via category moodel DONE
-	public function checkStock($id, $qty){
-		$currStock = prodDesc::where('products_id', '<=', $id)->value('stock');
-		if ($currStock < $qty){
-			return response([
-				'msg' => 'Sorry, our current stock is '. $currStock
-			]);
-		}
-	}
-
 	public function getCategory(){
 		return category::all();
 	}
@@ -171,5 +165,72 @@ class CatalogController extends Controller
 	public function deleteProdDesc(Request $request){
 		prodDesc::where('id', '=', $request->input('id'))->delete();
 	}
+
+	//Add Cart
+	public function addCart($id, $size, $qty){
+		$currStock = prodDesc::where('products_id', '<=', $id)->value('stock');
+		if ($currStock < $qty){
+			return response([
+				'msg' => 'Sorry, our current stock is '. $currStock
+			]);
+		}
+		else{
+			return $this->insertCart($id, $size, $qty);
+			// return response([
+			// 	'msg' => 'Added to cart'
+			// ]);
+		}
+	}
+
+	public function insertCart($userId, $idProd, $size, $qty){
+		$data = new cart();
+		$data['products_id'] = $idProd;
+		$data['users_id'] = $userId;
+		$data['size'] = $size;
+		$data['qty'] = $qty;
+		$data->save();
+
+		return response([
+			'msg' => 'success',
+		],200);
+	}
+
+	public function showCart(){
+		return cart::all();
+	}
+
+	// public function checkout($idProd, $size, $qty){
+	// 	$data = new orderDetail();
+	// 	$data['products_id'] = $idProd;
+	// 	$data['size'] = $size;
+	// 	$data['qty'] = $qty;
+	// 	$data->save();
+
+	// 	return response([
+	// 		'msg' => 'success',
+	// 	],200);
+	// }
+
+	public function checkout($id){
+		$datas = cart::where('users_id', '=', $id)->get();
+		foreach ($datas as $item) {
+			$data = new orderDetail();
+			$data['products_id'] = $item['products_id'];
+			$data['size'] = $item['size'];
+			$data['qty'] = $item['qty'];
+			$data->save();
+		}
+
+		cart::where('users_id',$id)->delete();
+
+		return response([
+			'msg' => 'success',
+		],200);
+	}
+
+	public function deleteCart($id){
+		cart::where('id', '<=', $id)->delete();
+	}
+
 
 }

@@ -17,15 +17,13 @@ class OrderController extends Controller
 
 	public function insertOrder(Request $request){
 		$data = new order();
-		$data['carts_id'] = $request->input('carts_id');
-		$data['customers_id'] = $request->input('customers_id');
+		$data['order_details_id'] = $request->input('order_details_id');
+		$data['users_id'] = $request->input('users_id');
 		$data['dateOpen'] = $request->input('dateOpen');
 		$data['dateClose'] = $request->input('dateClose');
 		$data['orderStatus'] = $request->input('orderStatus');
 		$data['paymentType'] = $request->input('paymentType');
 		$data['paymentStatus'] = $request->input('paymentStatus');
-		$data['shipType'] = $request->input('shipType');
-		$data['shipPrice'] = $request->input('shipPrice');
 		$data['totalPrice'] = $request->input('totalPrice');
 		$data->save();
 
@@ -37,15 +35,13 @@ class OrderController extends Controller
 	public function updateOrder(Request $request){
 		order::where('id', '=', $request->input('id'))
 				->update([
-					'carts_id' => $request->input('carts_id'),
-					'customers_id' => $request->input('customers_id'),
+					'order_details_id' => $request->input('order_details_id'),
+					'users_id' => $request->input('users_id'),
 					'dateOpen' => $request->input('dateOpen'),
 					'dateClose' => $request->input('dateClose'),
 					'orderStatus' => $request->input('orderStatus'),
 					'paymentType' => $request->input('paymentType'),
 					'paymentStatus' => $request->input('paymentStatus'),					
-					'shipType' => $request->input('shipType'),					
-					'shipPrice' => $request->input('shipPrice'),
 					'totalPrice' => $request->input('totalPrice'),
 				]);
 
@@ -93,10 +89,11 @@ class OrderController extends Controller
 		return cart::all();
 	}
 
-	public function insertCart(Request $request){
+	public function insertCart(Request $request, $idProd, $size, $qty){
 		$data = new cart();
-		$data['items_id'] = $request->input('items_id');
-		$data['qty'] = $request->input('qty');
+		$data['products_id'] = $request->input($idProd);
+		$data['size'] = $request->input($size);
+		$data['qty'] = $request->input($qty);
 		$data->save();
 
 		return response([
@@ -107,7 +104,8 @@ class OrderController extends Controller
 	public function updateCart(Request $request){
 		cart::where('id', '=', $request->input('id'))
 				->update([
-					'items_id' => $request->input('items_id'),
+					'products_id' => $request->input('products_id'),
+					'size' => $request->input('size'),
 					'qty' => $request->input('qty'),
 			]);
 
@@ -118,6 +116,18 @@ class OrderController extends Controller
 
 	public function deleteCart(Request $request){
 		cart::where('id', '=', $request->input('id'))->delete();
+	}
+
+	public function checkout($idProd, $size, $qty){
+		$data = new orderDetail();
+		$data['products_id'] = $idProd;
+		$data['size'] = $size;
+		$data['qty'] = $qty;
+		$data->save();
+
+		return response([
+			'msg' => 'success',
+		],200);
 	}
 
 	//CRUD item_descs table via itemDesc model DONE

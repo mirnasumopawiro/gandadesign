@@ -209,58 +209,6 @@ class AdminController extends Controller
 		prodDesc::where('id', '=', $request->input('id'))->delete();
 	}
 
-	
-	//CRUD customers table via customer model DONE
-
-	public function getCustomer(){
-		return customer::all();
-	}
-
-	public function insertCustomer(Request $request){
-		$data = new customer();
-		$data['email'] 		= $request->input('email');
-		$data['password'] 	= $request->input('password');
-		$data['fname'] 		= $request->input('fname');
-		$data['lname'] 		= $request->input('lname');
-		$data['addr'] 		= $request->input('addr');
-		$data['city'] 		= $request->input('city');
-		$data['state'] 		= $request->input('state');
-		$data['zipcode'] 	= $request->input('zipcode');
-		$data['country'] 	= $request->input('country');
-		$data['mobile'] 	= $request->input('mobile');
-		$data['gender'] 	= $request->input('gender');
-		$data->save();
-
-		return response([
-			'msg' => 'success',
-		],200);
-	}
-
-	public function updateCustomer(Request $request){
-		customer::where('id', '=', $request->input('id'))
-				->update([
-					'email'		=> $request->input('email'),
-					'password'	=> $request->input('password'),
-					'fname'		=> $request->input('fname'),
-					'lname'		=> $request->input('lname'),
-					'addr'		=> $request->input('addr'),
-					'city'		=> $request->input('city'),
-					'state'		=> $request->input('state'),
-					'zipcode'	=> $request->input('zipcode'),
-					'country'	=> $request->input('country'),
-					'mobile'	=> $request->input('mobile'),
-					'gender'	=> $request->input('gender')
-				]);
-
-		return response([
-			'msg' => 'success'
-		]);
-	}
-
-	public function deleteCustomer(Request $request){
-		customer::where('id', '=', $request->input('id'))->delete();
-	}
-
 	//CRUD orders table via order model
     public function getOrder(){
 		return order::all();
@@ -268,15 +216,13 @@ class AdminController extends Controller
 
 	public function insertOrder(Request $request){
 		$data = new order();
-		$data['carts_id'] = $request->input('carts_id');
-		$data['customers_id'] = $request->input('customers_id');
+		$data['order_details_id'] = $request->input('order_details_id');
+		$data['users_id'] = $request->input('users_id');
 		$data['dateOpen'] = $request->input('dateOpen');
 		$data['dateClose'] = $request->input('dateClose');
 		$data['orderStatus'] = $request->input('orderStatus');
 		$data['paymentType'] = $request->input('paymentType');
 		$data['paymentStatus'] = $request->input('paymentStatus');
-		$data['shipType'] = $request->input('shipType');
-		$data['shipPrice'] = $request->input('shipPrice');
 		$data['totalPrice'] = $request->input('totalPrice');
 		$data->save();
 
@@ -288,15 +234,13 @@ class AdminController extends Controller
 	public function updateOrder(Request $request){
 		order::where('id', '=', $request->input('id'))
 				->update([
-					'carts_id' => $request->input('carts_id'),
-					'customers_id' => $request->input('customers_id'),
+					'order_details_id' => $request->input('order_details_id'),
+					'users_id' => $request->input('users_id'),
 					'dateOpen' => $request->input('dateOpen'),
 					'dateClose' => $request->input('dateClose'),
 					'orderStatus' => $request->input('orderStatus'),
 					'paymentType' => $request->input('paymentType'),
 					'paymentStatus' => $request->input('paymentStatus'),					
-					'shipType' => $request->input('shipType'),					
-					'shipPrice' => $request->input('shipPrice'),
 					'totalPrice' => $request->input('totalPrice'),
 				]);
 
@@ -344,10 +288,11 @@ class AdminController extends Controller
 		return cart::all();
 	}
 
-	public function insertCart(Request $request){
+	public function insertCart(Request $request, $idProd, $size, $qty){
 		$data = new cart();
-		$data['items_id'] = $request->input('items_id');
-		$data['qty'] = $request->input('qty');
+		$data['products_id'] = $request->input($idProd);
+		$data['size'] = $request->input($size);
+		$data['qty'] = $request->input($qty);
 		$data->save();
 
 		return response([
@@ -358,7 +303,8 @@ class AdminController extends Controller
 	public function updateCart(Request $request){
 		cart::where('id', '=', $request->input('id'))
 				->update([
-					'items_id' => $request->input('items_id'),
+					'products_id' => $request->input('products_id'),
+					'size' => $request->input('size'),
 					'qty' => $request->input('qty'),
 			]);
 
@@ -414,8 +360,9 @@ class AdminController extends Controller
 
 	public function insertOrderDetail(Request $request){
 		$data = new orderDetail();
-		$data['items_id'] = $request->input('items_id');
-		$data['qty'] = $request->input('qty');
+		$data['products_id'] = $request->input($idProd);
+		$data['size'] = $request->input($size);
+		$data['qty'] = $request->input($qty);
 		$data->save();
 
 		return response([
@@ -426,7 +373,8 @@ class AdminController extends Controller
 	public function updateOrderDetail(Request $request){
 		orderDetail::where('id', '=', $request->input('id'))
 				->update([
-					'items_id' => $request->input('items_id'),
+					'products_id' => $request->input('products_id'),
+					'size' => $request->input('size'),
 					'qty' => $request->input('qty'),
 			]);
 

@@ -16,11 +16,11 @@ class CreateHistoriesTable extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('customers_id')->unsigned();
+            $table->uuid('users_id')->unsigned();
             $table->uuid('orders_id')->unsigned();
             $table->uuid('order_details_id')->unsigned();
             $table->timestamps();
-            $table->foreign('customers_id')->references('id')->on('customers');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('orders_id')->references('id')->on('orders');
             $table->foreign('order_details_id')->references('id')->on('order_details');
         });

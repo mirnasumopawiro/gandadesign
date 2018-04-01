@@ -17,17 +17,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-	Route::get('getCustomer', 'CustomerController@getCustomer');
-	Route::post('insertCustomer', 'CustomerController@insertCustomer');
-	Route::delete('deleteCustomer', 'CustomerController@deleteCustomer');
-	Route::put('updateCustomer', 'CustomerController@updateCustomer');
-
 	Route::get('getCategory', 'CatalogController@getCategory');
-	Route::get('checkStock/{id}/{qty}', 'CatalogController@checkStock');
+	Route::post('addCart/{id}/{size}/{qty}', 'CatalogController@addCart');
+	Route::post('insertCart/{userid}/{idProd}/{size}/{qty}', 'CatalogController@insertCart');
 	Route::post('insertCategory', 'CatalogController@insertCategory');
 	Route::delete('deleteCategory', 'CatalogController@deleteCategory');
 	Route::put('updateCategory', 'CatalogController@updateCategory');
 	Route::get('showByCategory/{id}', 'CatalogController@showByCategory');
+	Route::get('showCart', 'CatalogController@showCart');
+	Route::post('checkout/{id}', 'CatalogController@checkout');
 
 	Route::get('getSubCategory', 'CatalogController@getSubCategory');
 	Route::post('insertSubCategory', 'CatalogController@insertSubCategory');

@@ -145,14 +145,14 @@ class AuthController extends Controller
     */
 
     public function logout(Request $request) {
-    	$this->validate($request, ['token' => 'required']);
+    	//$this->validate($request, ['token' => 'required']);
 
     	try {
-    		JWTAuth::invalidate($request->input('token'));
+    		JWTAuth::invalidate();
     		return response()->json(['success' => true, 'message' => "You have successfully logged out."]);
     	} catch (JWTException $e) {
     		//something went wrong whilst attempting to encode token
-    		return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+    		return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
     	}
     }
 

@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 	Route::get('getCategory', 'CatalogController@getCategory');
 	Route::post('addCart/{id}/{size}/{qty}', 'CatalogController@addCart');
@@ -74,8 +74,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('insertHistory', 'PurchaseController@insertHistory');
 	Route::delete('deleteHistory', 'PurchaseController@deleteHistory');
 	Route::put('updateHistory', 'PurchaseController@updateHistory');
-
+Route::group(['middleware' => 'jwt.auth'], function(){
+	Route::get('logout', 'AuthController@logout');
+});
 	Route::post('register', 'AuthController@register');
 	Route::post('login', 'AuthController@login');
-	Route::get('logout', 'AuthController@logout');
 	
